@@ -1,0 +1,46 @@
+<template>
+  <swiper>
+    <swiper-item :key="item.image" v-for="item in banners">
+      <a :href="item.link">
+        <img :src="item.image" @load="imageLoad">
+      </a>
+    </swiper-item>
+  </swiper>
+</template>
+
+<script>
+  import {Swiper, SwiperItem} from 'components/common/swiper'
+
+  export default {
+    name: "HomeSwiper",
+    props: {    //这里是子  拿到Home.vue传过来的banners数据
+      banners: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
+    data() {
+      return {
+        isLoad: false
+      }
+    },
+    components: {
+      Swiper,
+      SwiperItem
+    },
+    methods: {
+      imageLoad() {
+        if (!this.isLoad) {
+          this.$emit('swiperImageLoad')
+          this.isLoad = true
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>
